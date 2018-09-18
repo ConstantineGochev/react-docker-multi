@@ -20,7 +20,7 @@ ConnectToDB(function(boatsCollection) {
 app.get('/boats', (req, res) => {
   
  Boat.find().then((data) => {
-  //  console.log(data)
+    console.log(data)
     res.send(data)
 
   }).catch(err => console.log(err))

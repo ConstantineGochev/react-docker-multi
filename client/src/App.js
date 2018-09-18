@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {connect} from 'react-redux'
+import { Route, Router, Redirect } from 'react-router-dom';
+import {browserHistory} from 'react-router'
+import HomePage from './components/pages/HomePage'
+import BoatRentalPage from './components/pages/BoatRentalPage'
+import HeaderMenu from './components/HeaderMenu'
+import RegisterBoatPage from './components/pages/RegisterBoatPage'
+import HelpPage from './components/pages/HelpPage'
+import { createBrowserHistory } from 'history'
+
+
+export const history = createBrowserHistory({})
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Reactttt</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Router history={history}>
+          <div>
+            <HeaderMenu />
+            <Route exact path='/' component={HomePage} />
+            <Route path='/boat-rental' component={BoatRentalPage} />
+            <Route path='/register-boat' component={RegisterBoatPage} />
+            <Route path='/help' component={HelpPage} />      
+          </div>
+        </Router>
       </div>
     );
   }

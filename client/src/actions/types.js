@@ -1,0 +1,1 @@
+export const BOATS_DATA = 'boats_data'
