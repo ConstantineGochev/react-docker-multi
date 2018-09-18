@@ -1,0 +1,40 @@
+version: '2'
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '4000:80'
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+  api:
+    restart: always  
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes: 
+      - /app/node_modules
+      - ./server:/app
+    links:
+      - mongo
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - '3000:3000'
+    links:
+      - api
+   
