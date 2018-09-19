@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
 
 
 class ProfileMenuLayout extends Component {
