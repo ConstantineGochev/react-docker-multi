@@ -1,41 +1,27 @@
 const express = require('express');
 const process = require('process');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
-const Schema = mongoose.Schema;
+const http = require('http');
+const morgan = require('morgan')
+const port = 5000 || process.env.PORT
+const Boat = require('./models/boat')
 
 const app = express();
+const server = http.createServer(app)
+app.use(morgan('combined'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({type: '*/*'}))
+
 const ConnectToDB = require('./config/db-connect')
 
 
-const boatSchema = new Schema({
-  model: {
-    type: String,
-  }
-})
-const Boat = mongoose.model('boats', boatSchema)
-
 ConnectToDB(function(boatsCollection) {
-app.get('/boats', (req, res) => {
-  
- Boat.find().then((data) => {
-    console.log(data)
-    res.send(data)
-
-  }).catch(err => console.log(err))
-
-});
-app.get('/boats/:id', (req, res) => {
-     Boat.findById(req.params.id).then((data) => {
-       console.log(data)
-       res.send(data)
-     }).catch(err => console.log(err))
-})
+    require('./routes/authRoutes')(app)
+    require('./routes/boatRoutes')(app)
 
 })
 
 
-app.listen(5000, () => {
-  console.log('Listening on port 5000');
+server.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
