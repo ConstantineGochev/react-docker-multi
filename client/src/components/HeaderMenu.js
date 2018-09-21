@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import { Menu, Segment } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import ProfileMenu from './ProfileMenu'
 import logo from '../logo.svg';
+import {connect} from 'react-redux'
+import {handle_menu_state } from '../actions'
+import {slide as BurgerMenu} from 'react-burger-menu';
+import ProfileMenuLayout from './ProfileMenuLayout';
+import {decorator as reduxBurgerMenu} from 'redux-burger-menu';
+
 //import {history} from '../App'
 
 class HeaderMenu extends Component {
@@ -10,7 +15,7 @@ class HeaderMenu extends Component {
         super()
         this.state = {
             active_item: localStorage.getItem('active_item') || 'home',
-            is_profile_menu_open: false
+
         }
     }
     handleItemClick = (e, { name, to }) => {
@@ -18,17 +23,21 @@ class HeaderMenu extends Component {
         this.setState({ active_item: name })
     }
     toggle_profile_menu = () => {
-        this.setState({
-            is_profile_menu_open: !this.state.is_profile_menu_open
-        })
+        // action for menu state with the opposite props
+         this.props.handle_menu_state(!this.props.menu.isOpen)
+        //  //we have to force update to the component
+        //  this.forceUpdate()
+        
     }
-    handleProfleMenuChange = (state) => {
-        this.setState({
-            is_profile_menu_open: state.isOpen
-        })
-    }
+    // handle_menu_state_change = (state) => {
+    //     // send the state of the menu to the reducer
+    //      this.props.handle_menu_state(state.isOpen)
+       
+    // }
+
+
     render() {
-        //console.log(this.props)
+        console.log(this.props.menu)
         const { active_item } = this.state
         return (
             <div>
@@ -67,10 +76,19 @@ class HeaderMenu extends Component {
                         />
                     </Menu.Menu>
                 </Menu>
-                <ProfileMenu isOpen={this.state.is_profile_menu_open} profile_menu_state={(state) => this.handleProfleMenuChange(state)} />
+        
+                <BurgerMenu right isOpen={this.props.menu.isOpen} onChange={(state) => this.props.handle_menu_state(state.isOpen) } className='burger-menu' width={'30%'} >
+                    <ProfileMenuLayout  />
+                </BurgerMenu>
             </div>
         )
     }
 }
+function map_state_to_props (state) {
+    return {
+        auth: state.auth,
+        menu: state.menu
+    }
+}
 
-export default HeaderMenu
+export default connect(map_state_to_props,{handle_menu_state})(HeaderMenu)

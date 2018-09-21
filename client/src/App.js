@@ -7,25 +7,25 @@ import BoatRentalPage from './components/pages/BoatRentalPage'
 import HeaderMenu from './components/HeaderMenu'
 import RegisterBoatPage from './components/pages/RegisterBoatPage'
 import HelpPage from './components/pages/HelpPage'
+import ProfilePage from './components/pages/ProfilePage'
 import { createBrowserHistory } from 'history'
 
 
-export const history = createBrowserHistory({})
-
+const history = createBrowserHistory()
+console.log(history)
 class App extends Component {
   render() {
     return (
-      <div>
         <Router history={history}>
           <div>
             <HeaderMenu />
-            <Route exact path='/' component={HomePage} />
+            <Route exact path='/'  render={(props) => <HomePage {...props} /> }/>
             <Route path='/boat-rental' component={BoatRentalPage} />
+            <Route path='/profile' component={ProfilePage} />
             <Route path='/register-boat' component={RegisterBoatPage} />
             <Route path='/help' component={HelpPage} />      
           </div>
         </Router>
-      </div>
     );
   }
 }

@@ -60,6 +60,17 @@ body {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+/* burger menu */
+@media only screen and (max-width: 1224px) {
+  .burger-menu {
+    width: 80%!important;
+  }
+   
+}
+/* login form */
+body > div > div,
+body > div > div > div.login-form {
+height: 100%;}
 
 /* social buttons */
 .social-buttons-wrapper {
