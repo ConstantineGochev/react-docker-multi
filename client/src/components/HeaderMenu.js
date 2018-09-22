@@ -1,47 +1,38 @@
 import React, {Component} from 'react';
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment,  Sidebar } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import logo from '../logo.svg';
 import {connect} from 'react-redux'
-import {handle_menu_state } from '../actions'
-import {slide as BurgerMenu} from 'react-burger-menu';
-import ProfileMenuLayout from './ProfileMenuLayout';
-import {decorator as reduxBurgerMenu} from 'redux-burger-menu';
+import ProfileMenuLayout from './ProfileMenuLayout'
 
-//import {history} from '../App'
+
 
 class HeaderMenu extends Component {
     constructor(props) {
         super()
+
         this.state = {
             active_item: localStorage.getItem('active_item') || 'home',
-
+            visible: false
         }
     }
     handleItemClick = (e, { name, to }) => {
         localStorage.setItem('active_item', name)
         this.setState({ active_item: name })
     }
-    toggle_profile_menu = () => {
-        // action for menu state with the opposite props
-         this.props.handle_menu_state(!this.props.menu.isOpen)
-        //  //we have to force update to the component
-        //  this.forceUpdate()
-        
-    }
-    // handle_menu_state_change = (state) => {
-    //     // send the state of the menu to the reducer
-    //      this.props.handle_menu_state(state.isOpen)
-       
-    // }
 
+
+    handleButtonClick = () => this.setState({ visible: !this.state.visible })
+
+    handleSidebarHide = () => this.setState({ visible: false })
 
     render() {
-        console.log(this.props.menu)
-        const { active_item } = this.state
+        console.log(this.state.visible)
+        console.log(this.props)
+        const { active_item, visible } = this.state
         return (
             <div>
-                <Menu stackable size='large' fixed='top'>
+                <Menu stackable size='large' >
                     <Menu.Item>
                         <img src={logo} />
                     </Menu.Item>
@@ -72,14 +63,25 @@ class HeaderMenu extends Component {
                         <Menu.Item
                             name='my profile'
                             active={active_item === 'my profile'}
-                            onClick={this.toggle_profile_menu}
+                            onClick={this.handleButtonClick}
                         />
                     </Menu.Menu>
                 </Menu>
-        
-                <BurgerMenu right isOpen={this.props.menu.isOpen} onChange={(state) => this.props.handle_menu_state(state.isOpen) } className='burger-menu' width={'30%'} >
-                    <ProfileMenuLayout  />
-                </BurgerMenu>
+                    <Sidebar
+                        as={Menu}
+                        animation='overlay'
+                        icon='labeled'
+                        direction='right'
+                        inverted
+                        onHide={this.handleSidebarHide}
+                        vertical
+                        visible={visible}
+                        width='thin'
+                        id="side-menu"
+                    >
+                        <ProfileMenuLayout {...this.props} />
+
+                    </Sidebar>
             </div>
         )
     }
@@ -87,8 +89,7 @@ class HeaderMenu extends Component {
 function map_state_to_props (state) {
     return {
         auth: state.auth,
-        menu: state.menu
     }
 }
 
-export default connect(map_state_to_props,{handle_menu_state})(HeaderMenu)
+export default connect(map_state_to_props,{})(HeaderMenu)

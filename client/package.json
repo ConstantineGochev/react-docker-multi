@@ -14,7 +14,7 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.3.3",
     "react-burger-menu": "^2.4.4",
-    "redux-burger-menu": "0.2.8",
+    "redux-burger-menu": "0.2.3",
     "react-responsive": "5.0.0",
     "semantic-ui-react": "^0.82.2"
   },

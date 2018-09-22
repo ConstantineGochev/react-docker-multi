@@ -13,7 +13,7 @@ class BoatRentalPage extends Component {
         this.props.fetch_boats_data()
     }
     render() {
-        console.log(this.props.boats)
+        console.log(this.props)
         return (
             <div>boat rental  page </div>
         )

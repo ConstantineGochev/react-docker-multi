@@ -7,70 +7,16 @@ body {
 
 /* Profile menu styles */
 
-/* Position and sizing of burger button */
- .bm-burger-button {
-  /* position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 36px;
-  top: 36px; */
-  display: none;
-} 
 
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: #373a47;
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 24px;
-  width: 24px;
-}
-
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-/* General sidebar styles */
-.bm-menu {
-  background: #373a47;
-  padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
-  padding: 0.8em;
-}
-
-/* Individual item */
-.bm-item {
-  display: inline-block;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
-}
-/* burger menu */
-@media only screen and (max-width: 1224px) {
-  .burger-menu {
-    width: 80%!important;
+/* side menu */
+@media only screen and (min-width: 700px) {
+  #side-menu {
+    width: 80%;
   }
    
 }
 /* login form */
-body > div > div,
-body > div > div > div.login-form {
-height: 100%;}
+
 
 /* social buttons */
 .social-buttons-wrapper {
@@ -84,7 +30,33 @@ height: 100%;}
   justify-content: space-between;
   position: relative;
   margin-top: 2%!important;
-  width: 100%;
-  align-self: start;
+  width: 70%;
+  align-self: end;
   margin-bottom: 5%;
+}
+.ui.button.social-buttons {
+  align-self:center;
+}
+
+.ui.wide.right.sidebar, .ui.wide.left.sidebar {
+  height: 100%;
+  position: absolute !important;
+  bottom: 0px !important;
+  top: 0px !important;
+  z-index: 100 !important;
+  width: 30%!important;
+
+}
+/* .ui.visible.right.overlay.sidebar{
+  position: absolute !important;
+  width: 30%!important;
+  height: 100%!important;  
+} */
+#side-menu {
+  position: absolute ;
+  width: 30%;
+  height: 100%;  
+}
+.ui.large.form {
+  padding: 7%;
 }

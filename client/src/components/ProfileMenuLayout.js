@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {login_user, handle_menu_state} from '../actions'
+import {login_user} from '../actions'
 import { Button, Form, Grid, Header, Image, Message, Segment, Icon,TransitionablePortal } from 'semantic-ui-react';
 
 
@@ -17,6 +17,10 @@ class ProfileMenuLayout extends Component {
             password_reg_confirm: '',
             show_registration_layout: false
         }
+        document.body.addEventListener('click', function() {
+            console.log('test');
+          });
+          
     }
 
     handleFormChange = (e) => {
@@ -36,9 +40,10 @@ class ProfileMenuLayout extends Component {
             email,
             password
         }
-        this.props.login_user(data_obj)
         console.log(this.props.history)
-        this.props.handle_menu_state(false)
+        this.props.login_user(data_obj)
+        this.props.history.push('/profile')
+        document.body.click();
 
   
     }
@@ -57,7 +62,7 @@ class ProfileMenuLayout extends Component {
                         <Header as='h4' color='teal' textAlign='center'>
                             Log-in to your account
                          </Header>
-                        <div className='login-form'>
+                 
                             <Form size='large'>
                                 <Segment stacked>
                                     <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail address' name='email' onChange={this.handleFormChange} />
@@ -75,7 +80,7 @@ class ProfileMenuLayout extends Component {
                                     </Button>
                                 </Segment>
                             </Form>
-                        </div>
+             
                         <Message>
                             New to us? <a onClick={this.change_layout}>Sign Up</a>
                         </Message>
@@ -89,7 +94,7 @@ class ProfileMenuLayout extends Component {
                     <Header as='h4' color='teal' textAlign='center'>
                         Register
                     </Header>
-                    <div className='login-form'>
+            
                         <Form size='large'>
                             <Segment stacked>
                                 <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' name='name_reg' onChange={this.handleFormChange} />
@@ -121,7 +126,7 @@ class ProfileMenuLayout extends Component {
                         <Message>
                            Already have an account? <a onClick={this.change_layout}>Log in</a>
                         </Message>
-                    </div>
+     
             </div>
             )
         }
@@ -129,6 +134,7 @@ class ProfileMenuLayout extends Component {
 
     render() {
       //  console.log(this.state.email)
+      console.log(this.props)
         return (
             <div>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
@@ -166,4 +172,4 @@ function map_state_to_props (state) {
        
     }
 }
-export default connect(map_state_to_props, {login_user, handle_menu_state})(ProfileMenuLayout)
+export default connect(map_state_to_props, {login_user})(ProfileMenuLayout)

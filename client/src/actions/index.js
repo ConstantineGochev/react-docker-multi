@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {BOATS_DATA, LOGIN, AUTH_STATE, MENU_STATE} from './types'
-import {action as toggleMenu} from 'redux-burger-menu';
+
 
 
 export const fetch_boats_data = () => async dispatch => {
@@ -28,13 +28,4 @@ export const login_user = (data) => async dispatch => {
         })
     })
 
-
-
-
-
-
-}
-export const handle_menu_state = (state) => async dispatch => {
-   // console.log(state)
-    await dispatch(toggleMenu(state))
 }

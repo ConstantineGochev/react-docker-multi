@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
 import { Route, Router, Redirect } from 'react-router-dom';
-import {browserHistory} from 'react-router'
 import HomePage from './components/pages/HomePage'
 import BoatRentalPage from './components/pages/BoatRentalPage'
 import HeaderMenu from './components/HeaderMenu'
@@ -18,12 +16,12 @@ class App extends Component {
     return (
         <Router history={history}>
           <div>
-            <HeaderMenu />
+            <HeaderMenu history = {history}/>
             <Route exact path='/'  render={(props) => <HomePage {...props} /> }/>
-            <Route path='/boat-rental' component={BoatRentalPage} />
-            <Route path='/profile' component={ProfilePage} />
-            <Route path='/register-boat' component={RegisterBoatPage} />
-            <Route path='/help' component={HelpPage} />      
+            <Route path='/boat-rental' render={(props) => <BoatRentalPage {...props} /> }/>
+            <Route path='/profile'  render={(props) => <ProfilePage {...props} /> }/>
+            <Route path='/register-boat' render={(props) => <RegisterBoatPage {...props} /> }/>
+            <Route path='/help' render={(props) => <HelpPage {...props} /> }/>      
           </div>
         </Router>
     );

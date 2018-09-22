@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux'
-import {handle_menu_state} from '../../actions'
 
 class ProfilePage extends Component {
     constructor(props){
@@ -8,15 +7,12 @@ class ProfilePage extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div> profile page </div>
         )
     }
 }
-function map_state_to_props(state) {
-    return {
-        menu: state.menu
-    }
-}
 
-export default connect(map_state_to_props, {handle_menu_state})(ProfilePage)
+
+export default connect(null, {})(ProfilePage)
