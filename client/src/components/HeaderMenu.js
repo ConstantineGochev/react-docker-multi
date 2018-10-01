@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { Menu, Segment,  Sidebar } from 'semantic-ui-react'
+import { Menu, Segment,  Sidebar, Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import logo from '../logo.svg';
 import {connect} from 'react-redux'
-import ProfileMenuLayout from './ProfileMenuLayout'
+import NotRegisteredMenuLayout from './NotRegisteredMenuLayout'
 
 
 
@@ -27,8 +27,8 @@ class HeaderMenu extends Component {
     handleSidebarHide = () => this.setState({ visible: false })
 
     render() {
-        console.log(this.state.visible)
-        console.log(this.props)
+        // console.log(this.state.visible)
+        // console.log(this.props)
         const { active_item, visible } = this.state
         return (
             <div>
@@ -79,7 +79,8 @@ class HeaderMenu extends Component {
                         width='thin'
                         id="side-menu"
                     >
-                        <ProfileMenuLayout {...this.props} />
+                    <Button  icon='close' circular onClick={this.handleSidebarHide} />
+                    <NotRegisteredMenuLayout {...this.props} />
 
                     </Sidebar>
             </div>

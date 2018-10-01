@@ -11,8 +11,8 @@ module.exports = (cb) => {
             }
 
             db.collection('boats').insertMany([{ model: 'Boat_1' }, { model: 'Boat_2' }, { model: 'Boat_3' }])
-            var boatsCollection = db.collection('boats')
-            return cb(boatsCollection)
+
+            return cb(db)
         }, options)
        //     mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 }

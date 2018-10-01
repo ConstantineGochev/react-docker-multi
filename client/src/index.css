@@ -9,9 +9,9 @@ body {
 
 
 /* side menu */
-@media only screen and (min-width: 700px) {
+@media only screen and (max-width: 700px) {
   #side-menu {
-    width: 80%;
+    width: 80%!important;
   }
    
 }
@@ -37,26 +37,51 @@ body {
 .ui.button.social-buttons {
   align-self:center;
 }
+/* 
+.ui.wide.right.sidebar,  {
 
-.ui.wide.right.sidebar, .ui.wide.left.sidebar {
-  height: 100%;
-  position: absolute !important;
+  position: fixed !important;
   bottom: 0px !important;
   top: 0px !important;
   z-index: 100 !important;
   width: 30%!important;
 
-}
+
+} */
 /* .ui.visible.right.overlay.sidebar{
   position: absolute !important;
   width: 30%!important;
   height: 100%!important;  
 } */
 #side-menu {
-  position: absolute ;
+  position: fixed ;
   width: 30%;
-  height: 100%;  
+  height: 100%!important;  
+  /* overflow-y: hidden!important; */
+  overflow-x: hidden!important;
+  background: white;
+
 }
 .ui.large.form {
-  padding: 7%;
+  padding: 10%;
+}
+.ui .message {
+  margin-top:5%!important;
+  margin: 10%!important;
+  padding: 2px!important;
+}
+.ui.left.aligned.header {
+  padding:5%;
+  padding-top: 0;
+}
+.registration-form {
+  margin:0;
+}
+.ui.center.aligned.header, .ui.centered.header {
+  margin:0;
+}
+.ui.circular.button {
+  margin-left: 80%;
+  background: white;
+
 }

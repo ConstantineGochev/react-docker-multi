@@ -13,13 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({type: '*/*'}))
 
 const ConnectToDB = require('./config/db-connect')
+ConnectToDB()
 
 
-ConnectToDB(function(boatsCollection) {
     require('./routes/authRoutes')(app)
     require('./routes/boatRoutes')(app)
 
-})
 
 
 server.listen(port, () => {

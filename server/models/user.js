@@ -9,7 +9,12 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true
     },
-    password: String
+    password: String,
+    verified: {
+        type: Boolean,
+        default: false
+    }
+    
 })
 
 //on save hook, encrypt password

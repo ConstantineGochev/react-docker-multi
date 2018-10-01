@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {login_user} from '../actions'
+import {login_user, register_user} from '../actions'
 import { Button, Form, Grid, Header, Image, Message, Segment, Icon,TransitionablePortal } from 'semantic-ui-react';
 
 
@@ -15,8 +15,9 @@ class ProfileMenuLayout extends Component {
             email_reg: '',
             password_reg: '',
             password_reg_confirm: '',
-            show_registration_layout: false
+            show_registration_layout: false,
         }
+
         document.body.addEventListener('click', function() {
             console.log('test');
           });
@@ -25,27 +26,56 @@ class ProfileMenuLayout extends Component {
 
     handleFormChange = (e) => {
         e.preventDefault();
-        console.log(e.target.name)
+        //console.log(e.target.name)
         
         this.setState({
             [e.target.name]: e.target.value 
         })
     }
-    handleLogin = () => {
-        console.log(this.state.email);
-        console.log(this.state.password);
-        console.log(this.props)
+    handleRegistration = async () => {
+        const data = {
+            email: this.state.email_reg,
+            password: this.state.password_reg
+        }
+        await this.props.register_user(data)
+        await this.forceUpdate()
+
+    }
+    handleLogin = async () => {
+        // console.log(this.state.email);
+        // console.log(this.state.password);
+        // console.log(this.props)
         const { email, password } = this.state
         var data_obj = {
             email,
             password
         }
         console.log(this.props.history)
-        this.props.login_user(data_obj)
-        this.props.history.push('/profile')
-        document.body.click();
+        var self = this
 
-  
+        await this.props.login_user(data_obj,()=> {
+
+           self.props.history.push('/profile')
+           document.body.click();
+        })
+        await this.forceUpdate()
+
+
+    }
+    check_register_errors = () => {
+        if(this.props.auth.errors.reg_error !== null) {
+            return this.props.auth.errors.reg_error
+        } else {
+            return null
+        }
+    }
+    check_login_errors = () => {
+       // console.log(this.error)
+        if(this.props.auth.errors.auth_error !== null && this.props.auth.authenticated === false) {
+            return this.props.auth.errors.auth_error
+        } else if (this.props.auth.errors.auth_error === null && this.props.auth.authenticated ===false ) {
+            return null
+        }
     }
     change_layout = () => {
         this.setState({
@@ -78,6 +108,7 @@ class ProfileMenuLayout extends Component {
                                     <Button color='teal' fluid size='large' onClick={this.handleLogin}>
                                         Login
                                     </Button>
+                                    <p style={{color: 'red'}}>{this.check_login_errors()}</p>
                                 </Segment>
                             </Form>
              
@@ -95,7 +126,7 @@ class ProfileMenuLayout extends Component {
                         Register
                     </Header>
             
-                        <Form size='large'>
+                        <Form size='large' className='registration-form'>
                             <Segment stacked>
                                 <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' name='name_reg' onChange={this.handleFormChange} />
                                 <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail address' name='email_reg' onChange={this.handleFormChange} />
@@ -121,6 +152,7 @@ class ProfileMenuLayout extends Component {
                                 <Button color='teal' fluid size='large' onClick={this.handleRegistration}>
                                     Register
                              </Button>
+                                <p style={{color: 'red'}}>{this.check_register_errors()}</p>
                             </Segment>
                         </Form>
                         <Message>
@@ -134,7 +166,8 @@ class ProfileMenuLayout extends Component {
 
     render() {
       //  console.log(this.state.email)
-      console.log(this.props)
+     // console.log(this.props)
+     console.log(this.error)
         return (
             <div>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
@@ -168,8 +201,7 @@ class ProfileMenuLayout extends Component {
 function map_state_to_props (state) {
     return {
         auth: state.auth,
-        menu: state.menu
-       
+     
     }
 }
-export default connect(map_state_to_props, {login_user})(ProfileMenuLayout)
+export default connect(map_state_to_props, {login_user, register_user})(ProfileMenuLayout)

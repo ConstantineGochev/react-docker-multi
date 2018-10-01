@@ -10,7 +10,7 @@ import { createBrowserHistory } from 'history'
 
 
 const history = createBrowserHistory()
-console.log(history)
+//console.log(history)
 class App extends Component {
   render() {
     return (

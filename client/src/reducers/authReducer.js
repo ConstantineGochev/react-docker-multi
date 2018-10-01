@@ -1,8 +1,13 @@
-import {AUTH_STATE } from '.././actions/types'
+import {AUTH_STATE, AUTH_ERRORS, REGISTER, REGISTER_ERRORS } from '.././actions/types'
 
 var initialState = {
     authenticated: false,
-    token: ''
+    token: '',
+    msg: '',
+    errors: {
+        auth_error: '',
+        reg_error: ''
+    }
 }
 
 
@@ -11,15 +16,25 @@ export default function(state = initialState, actions) {
 
         case AUTH_STATE:
         console.log(actions.payload)
-        if(actions.payload === false) {
-          state.authenticated = false     
-        }else{
           state.token = actions.payload
+          state.errors.auth_error = null
           state.authenticated = true
-        }
-           
-           return state
-    
+        
+            return state
+        case AUTH_ERRORS:
+            console.log(actions.payload)
+            state.errors.auth_error = actions.payload;
+            state.authenticated = false;
+            return state
+        case REGISTER:
+            console.log(actions.payload)
+
+            state.msg = actions.payload
+
+            return state
+        case REGISTER_ERRORS:
+            state.errors.reg_error = actions.payload
+            return state
         default:
             return state;
     }
